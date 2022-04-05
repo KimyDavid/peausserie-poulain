@@ -1,0 +1,64 @@
+{%- if my_product.available and my_product.variants.size > 1 and is_external_product == false and is_grouped_product == false -%}
+  <div class="ProductSection-{{ my_section_id }} product__form d-flex align-items-center justify-content-center" data-section-id="{{ my_section_id }}" data-section-type="line_item" data-section-state="false">
+    <div class="close_btn"><span>{{ 'layout.cart.close' | t }}</span></div>
+    <div class="clearfix">
+      <div class="product-form__variants">
+        {%- unless my_product.has_only_default_variant -%}
+        <div class="variations-{{ my_section_id }}">
+          <div class="variations-content-{{ my_section_id }}">
+            {%- for option in my_product.options_with_values -%}
+            <div class="selector-wrapper {{ option.name | handlezie | downcase }} variation-select-{{ my_section_id }}-{{ forloop.index0 }}">
+              <label class="option-select-label{% if option.name == 'default' %} hide{% endif %}">
+                {{- option.name -}}: <span class="option-select-value option-select-value-{{ my_section_id }}-{{ forloop.index0 }}">{{ option.selected_value }}</span>
+              </label>
+              <div class="select-wrapper">
+                <select class="single-option-selector single-option-selector-{{ my_section_id }} single-option-selector-{{ my_section_id }}-{{ forloop.index0 }}" data-index="option{{ forloop.index }}" data-option="option{{ forloop.index }}">
+                  {%- for value in option.values -%}
+                  <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        {%- endunless -%}
+
+        <select name="id" class="ProductSelect-{{ my_section_id }} hide" data-section="{{ my_section_id }}">
+          {%- for variant in my_product.variants -%}
+          {%- if variant.available -%}
+          <option {% if variant == my_product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+            {{- variant.title -}}
+          </option>
+          {%- else -%}
+          <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
+          {%- endif -%}
+          {%- endfor -%}
+        </select>
+        <div class="product__price product-single__price-{{ my_section_id }}{% unless current_variant.available %} product-price--sold-out{% endunless %}">
+          <span class="ProductPrice-{{ my_section_id }} price"><span class="money">{{ current_variant.price | money }}</span></span>
+          <s class="ComparePrice-{{ my_section_id }} compare_at_price{% unless current_variant.compare_at_price > current_variant.price %} hide{% endunless %}"><span class="money">{{ current_variant.compare_at_price | money }}</span></s>
+        </div>
+      </div>
+      <div class="product__action">
+        <button type="submit" name="add"{% unless current_variant.available %} disabled="disabled"{% endunless %} class="AddToCart-{{ my_section_id }} btn btn-primary product-form__cart-submit">
+          <i class="ion ion-ios-cart"></i>
+          <span class="AddToCartText-{{ my_section_id }}">
+            {%- unless current_variant.available -%}
+              {{- 'products.product.sold_out' | t -}}
+            {%- else -%}
+              {%- if current_variant.inventory_quantity <= 0 and current_variant.inventory_management == 'shopify' -%}
+                {{- 'products.product.pre_order' | t -}}
+              {%- else -%}
+                {{- 'products.product.add_to_cart' | t -}}
+              {%- endif -%}
+            {%- endunless -%}
+          </span>
+        </button>
+      </div>
+    </div>
+    <script type="application/json" class="ProductJson-{{ my_section_id }}">{{ my_product | json }}</script>
+    <script type="application/json" class="ProductSwatchJson-{{ my_section_id }}">{{ my_product.metafields.texture | json }}</script>
+    <script type="application/json" class="ProductMoreJson-{{ my_section_id }}">{% capture product_more_json %}{% include 'product-json', product: my_product %}{% endcapture %}{{ product_more_json | strip_newlines | remove: "  " }}</script>
+  </div>
+{%- endif -%}

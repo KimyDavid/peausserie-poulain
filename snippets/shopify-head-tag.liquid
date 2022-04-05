@@ -1,0 +1,72 @@
+{{- 'vendor.scss.css' | asset_url | stylesheet_tag -}}
+{{- 'theme.scss.css' | asset_url | stylesheet_tag -}}
+{%- if settings.rtl_support -%}
+{{- 'theme-rtl.scss.css' | asset_url | stylesheet_tag -}}
+{%- endif -%}
+{%- if settings.roar_themedemo -%}
+{{- 'theme-demo.scss.css' | asset_url | stylesheet_tag -}}
+{%- endif -%}
+<script>
+  document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+  document.documentElement.className += (("ontouchstart" in document.documentElement) ? ' touch' : ' no-touch');
+  var theme = {
+    apps: {
+      details: {{- 'apps.lookbook.details' | t | json -}},
+      buyNow: {{- 'apps.lookbook.buy_now' | t | json -}},
+    },
+    strings: {
+      menu: {{- 'general.accessibility.menu_title' | t | json -}},
+      addToCart: {{- 'products.product.add_to_cart' | t | json -}},
+      soldOut: {{- 'products.product.sold_out' | t | json -}},
+      unavailable: {{- 'products.product.unavailable' | t | json -}},
+      preOrder: {{- 'products.product.pre_order' | t | json -}},
+      inComing: {{- 'products.product.incoming' | t | json -}},
+      productAdded: {{- 'products.product.product_added' | t | json -}},
+      onlyLeft: {{- 'products.product.only_left_html' | t | json -}},
+      showMore: {{- 'general.filters.show_more' | t | json -}},
+      showLess: {{- 'general.filters.show_less' | t | json -}},
+      addressError: {{- 'sections.map.address_error' | t | json -}},
+      addressNoResults: {{- 'sections.map.address_no_results' | t | json -}},
+      addressQueryLimit: {{ 'sections.map.address_query_limit_html' | t | json }},
+      authError: {{- 'sections.map.auth_error_html' | t | json -}},
+      shoppingCart: {{- 'cart.general.title' | t | json -}},
+      compareLimit: {{- 'compare.general.product_limited' | t | json -}},
+      wishlistAdded: {{- 'wishlist.general.product_added' | t | json -}},
+      wishlistRemoved: {{- 'wishlist.general.product_removed' | t | json -}},
+      days: {{- 'general.countdown_localisation.days' | t | json -}},
+      day: {{- 'general.countdown_localisation.day' | t | json -}},
+      hours: {{- 'general.countdown_localisation.hours' | t | json -}},
+      hour: {{- 'general.countdown_localisation.hour' | t | json -}},
+      minutes: {{- 'general.countdown_localisation.minutes' | t | json -}},
+      minute: {{- 'general.countdown_localisation.minute' | t | json -}},
+      seconds: {{- 'general.countdown_localisation.seconds' | t | json -}},
+      second: {{- 'general.countdown_localisation.second' | t | json -}},
+      shippingButton: {{- 'cart.general.calculate_shipping_button' | t | json -}},
+      shippingButtonDisabled: {{- 'cart.general.calculate_shipping_button_disabled' | t | json -}},
+    },
+    settings: {
+      moneyFormat: {{- shop.money_format | json -}},
+      assetUrl: {{- '?' | asset_url | json -}},
+      cartAjax: {{- settings.shop_cart_ajax | json -}},
+      afterAddition: {{- settings.shop_after_addition | json -}},
+      rtl: {{- settings.rtl_support -}},
+      {%- if settings.roar_themedemo -%}
+      rtlCss: {{- 'theme-rtl.scss.css' | asset_url | stylesheet_tag | json -}},
+      {%- endif -%}
+      customerIsLoggedIn: {%- if shop.customer_accounts_enabled and customer -%}true{%- else -%}false{%- endif -%},
+    }
+  };
+</script>
+{%- if template.directory == 'customers' or template.name == 'cart' -%}
+<script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
+{%- endif -%}
+<script src="{{ 'lazysizes.js' | asset_url }}" async="async"></script>
+<script src="//cdn.shopify.com/s/javascripts/currencies.js" defer="defer"></script>
+<script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+{%- if settings.roar_themedemo -%}
+<script src="{{ 'theme-demo.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+{%- if is_shopify_admin == 'true' -%}
+<script src="{{ 'theme-admin.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}

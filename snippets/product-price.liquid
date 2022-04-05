@@ -1,0 +1,29 @@
+{%- unless my_product.price_varies -%}
+  {%- if my_product.compare_at_price > my_product.price -%}{
+<del class="compare_at_price">
+  <span class="price">
+    <span class="money price">
+      <span class="custom-price">{{ my_product.compare_at_price | money_without_trailing_zeros }}</span>
+      <span class="custom-unit">{%- if my_product.tags contains 'unit' -%}/m²{% endif %}</span>
+    </span>
+  </span>
+</del>
+<ins>
+  <span class="money price">
+    <span class="custom-price">{{ my_product.price | money_without_trailing_zeros }}</span>
+    <span class="custom-unit">{%- if my_product.tags contains 'unit' -%}/m²{% endif %}</span>
+  </span>
+</ins>
+  {%- else -%}
+	<span class="money price">
+    	<span class="custom-price">{{ my_product.price | money_without_trailing_zeros }}</span>
+    	<span class="custom-unit">{%- if my_product.tags contains 'unit' -%}/m²{% endif %}</span>
+	</span>
+  {%- endif -%}
+{%- else -%}
+  <span class="money price">
+      <span>{{ 'collections.general.start_price' | t }}</span>
+      <span class="custom-price">{{ my_product.price_min | money_without_trailing_zeros }}</span>
+      <span class="custom-unit">{%- if my_product.tags contains 'unit' -%}/m²{% endif %}</span> 
+  </span>
+{%- endunless-%}
