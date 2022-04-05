@@ -1,0 +1,22 @@
+{
+    "sourceFile": ".gitignore",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1649182025519,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1649182036605,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-node_modules/yargs/README.md\n+node_modules/*\n"
+                }
+            ],
+            "date": 1649182025519,
+            "name": "Commit-0",
+            "content": "node_modules/yargs/README.md\n"
+        }
+    ]
+}

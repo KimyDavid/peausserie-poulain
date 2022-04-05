@@ -1,0 +1,18 @@
+{
+    "sourceFile": "scss/styles.scss",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1649181952916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1649181952916,
+            "name": "Commit-0",
+            "content": "$color-red: #b43301;\n$color-white: #ffffff;\n$color-gray: #dddddd;\n$color-gray-light: #f3f3f3;\n\n$color-primary: $color-red;\n\n* {\n    background: red;\n}"
+        }
+    ]
+}

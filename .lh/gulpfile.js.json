@@ -1,0 +1,18 @@
+{
+    "sourceFile": "gulpfile.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1649182212816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1649182212816,
+            "name": "Commit-0",
+            "content": "// plugins\nconst gulp = require('gulp');\nconst sass = require('gulp-sass')(require('sass'));\nconst minifyCss = require('gulp-clean-css');\nconst plumber = require('gulp-plumber');\nconst autoprefixer = require('gulp-autoprefixer');\nvar sourcemaps = require('gulp-sourcemaps');\n\nconst distFolder = './assets/';\nconst srcFolder = './scss/*.scss';\n\n\nfunction css() {\n  return (\n    gulp\n      .src(srcFolder, { since: gulp.lastRun(css) })\n      .pipe(sourcemaps.init())\n      .pipe(sass().on('error', sass.logError))\n      .pipe(plumber())\n      .pipe(autoprefixer())\n      .pipe(minifyCss())\n      .pipe(sourcemaps.write('.'))\n      .pipe(gulp.dest(distFolder))\n  );\n}\n\nfunction watch() {\n  gulp.watch([srcFolder], css);\n}\n\nconst dev = gulp.parallel(watch);\n\n// exports\nexports.dev = dev;"
+        }
+    ]
+}

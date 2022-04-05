@@ -1,0 +1,1 @@
+{"version":3,"sources":["custom_silexia.scss"],"names":[],"mappings":"AAAA,EACI,WAAA,IACA,MAAA","file":"custom_silexia.css","sourcesContent":["* {\n    background: red;\n    color: yellow;\n}"]}
